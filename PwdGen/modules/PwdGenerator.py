@@ -2,7 +2,7 @@
 
 # Import random and alphabet libraries, needed modules only.
 from random import choice, randint
-from string import ascii_letters, ascii_lowercase, ascii_uppercase, punctuation
+from string import ascii_letters, ascii_lowercase, ascii_uppercase
 
 # Class to generate the password.
 class PwdGenerator:
@@ -12,6 +12,14 @@ class PwdGenerator:
         self.lenght = lenght
         self.security_level = security_level
 
+    def analyze_password_structure(self, password) -> dict:
+        structure_analysis = {
+            "last_four_chars": password[-4:] if len(password) >= 4 else "",
+            "length": len(password),
+        }
+
+        return structure_analysis
+
     def password_backtracking(self, password) -> dict:
         upper_chars = lower_chars = special_chars = 0
 
@@ -19,13 +27,9 @@ class PwdGenerator:
             "upper_chars": 0,
             "lower_chars": 0,
             "special_chars": 0,
-            "previous_four": ""
         }
 
-        for backtrack_iteration, char in enumerate(password):
-            if ( backtrack_iteration == 3 ):
-                total_count["previous_four"] = password[-3]
-
+        for char in password:
             if ( char in ascii_lowercase ):
                 lower_chars += 1
             elif ( char in ascii_uppercase ):
@@ -39,45 +43,37 @@ class PwdGenerator:
 
         return total_count
 
+    def should_add_special_char(self, special_chars, special_chars_needed, structure_analysis, current_pwd_lenght) -> bool:
+        has_special_chars_left = special_chars < special_chars_needed
+        random_choice = randint(0, 2) % 2 == 0
+        no_special_in_last_four = structure_analysis['last_four_chars'] not in self.__special_characters
+        has_space_for_more = current_pwd_lenght < self.lenght
 
+        return has_special_chars_left and random_choice and no_special_in_last_four and has_space_for_more
+    
     def generator(self) -> str:
-        previous_char = ""
         generated_password = ""
-
-        upper_chars = lower_chars = special_chars = 0
-
-        # Achieved:
-        #   - Password length.
-        #   - Flexibility in length for password security.
-        #   - Generate a password with random letters.
-        #   - Ensure the password contains special characters.
-        #   - Avoid generating too many special characters but ensure they are distributed throughout the password.
-        #   - Backtracking for uppercase, lowercase, and special characters.
-        #   - Ensure that the same character of the same type does not repeat more than twice consecutively.
-        # To achieve:
-        #   - Password complexities based on difficulty level.
+        special_chars = 0
         
         while ( len(generated_password) < self.lenght ):
             current_pwd_lenght = len(generated_password)
             chosen_char = choice(ascii_letters)
-            special_chars_needed = int((current_pwd_lenght / self.lenght) * len(generated_password))
+            special_chars_needed = max(1, int(self.lenght * 0.15)) # Percentage of amount of special characters in generated password have to vary based on security level.
 
-            if ( current_pwd_lenght == 0 or current_pwd_lenght > 3):
-                analysis = self.password_backtracking(generated_password)
-
-            if ( current_pwd_lenght > 0 and generated_password[-1] == chosen_char ):
+            if current_pwd_lenght > 0 and generated_password[-1] == chosen_char:
                 generated_password += chosen_char
                 continue
 
+            if current_pwd_lenght == 0 or current_pwd_lenght > 3:
+                structure_analysis = self.analyze_password_structure(generated_password)
+
             generated_password += chosen_char
             
-            if (
-                randint(0, 2) % 2 == 0
-                and analysis['previous_four'] not in self.__special_characters
-                and special_chars < special_chars_needed
-                and current_pwd_lenght > 3
-            ):
+            if ( self.should_add_special_char(special_chars, special_chars_needed, structure_analysis, current_pwd_lenght) ):
                 generated_password += choice(self.__special_characters)
                 special_chars += 1
+
+            if ( current_pwd_lenght > self.lenght ):
+                generated_password = generated_password[:self.lenght]
 
         return generated_password
