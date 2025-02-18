@@ -1,8 +1,0 @@
->>> Short term objetives <<<
-- Logger core and dependencies.
-- TaskView.py.
-- Creation of "changelog" in specified directory.
-- Remove the dependency of importing any other thing that isn't a controller in "main.py".
-
->>> Long term objetives <<<
-- Code beautify.
