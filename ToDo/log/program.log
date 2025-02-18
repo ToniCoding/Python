@@ -1,0 +1,43 @@
+[INFO]03-02-2025T15:43:43,450 - Successfully read contents.
+[INFO]03-02-2025T15:43:52,261 - Successfully added contents to file.
+[ERR]17-02-2025T16:16:28,693 - File at path 'tasks//dec/tasks.txt' not found.
+[INFO]17-02-2025T16:16:59,469 - Successfully added contents to file.
+[INFO]17-02-2025T16:22:43,969 - Successfully added contents to file.
+[INFO]17-02-2025T16:24:00,693 - Successfully added contents to file.
+[INFO]17-02-2025T16:24:09,318 - Successfully added contents to file.
+[INFO]17-02-2025T16:25:03,562 - Successfully added contents to file.
+[ERR]17-02-2025T16:27:07,187 - File at path 'tasks/2025/feb/tasks.txt' not found.
+[ERR]17-02-2025T16:27:29,654 - File at path 'tasks/2025/feb/tasks.txt' not found.
+[ERR]17-02-2025T16:27:49,841 - File at path 'tasks/2025/feb/tasks.txt' not found.
+[ERR]17-02-2025T16:28:12,835 - File at path 'tasks/2025/feb/tasks.txt' not found.
+[ERR]17-02-2025T16:29:03,212 - The specified path 'tasks/2025/feb/tasks.txt' is a directory.
+[INFO]17-02-2025T16:32:58,157 - Successfully added contents to file.
+[INFO]17-02-2025T16:36:43,165 - Successfully added contents to file.
+[INFO]17-02-2025T17:18:13,520 - [TASK] Correctly applied task name.
+[INFO]17-02-2025T17:18:13,523 - [TASK] Correctly applied task description.
+[INFO]17-02-2025T17:18:13,528 - [TASK] Applied date to task due.
+[INFO]17-02-2025T17:18:13,528 - [TASK] Applied task status NOT_STARTED.
+[INFO]17-02-2025T17:18:13,533 - Successfully added contents to file.
+[INFO]17-02-2025T17:21:54,531 - [TASK] Correctly applied task name.
+[INFO]17-02-2025T17:21:54,533 - [TASK] Correctly applied task description.
+[INFO]17-02-2025T17:21:54,536 - [TASK] Applied date to task due.
+[INFO]17-02-2025T17:21:54,538 - [TASK] Applied task status NOT_STARTED.
+[INFO]17-02-2025T17:21:54,542 - Successfully added contents to file.
+[INFO]18-02-2025T16:13:31,025 - [INFO] Successfully read contents.
+[INFO]18-02-2025T16:13:54,020 - [TASK] Correctly applied task name.
+[INFO]18-02-2025T16:13:54,022 - [TASK] Correctly applied task description.
+[INFO]18-02-2025T16:13:54,026 - [TASK] Applied date to task due.
+[INFO]18-02-2025T16:13:54,027 - [TASK] Applied task status NOT_STARTED.
+[INFO]18-02-2025T16:13:54,032 - [INFO] Successfully added contents to file.
+[INFO]18-02-2025T16:15:05,117 - [F_HANDLER] Successfully read contents.
+[INFO]18-02-2025T16:15:18,527 - [TASK] Correctly applied task name.
+[INFO]18-02-2025T16:15:18,528 - [TASK] Correctly applied task description.
+[INFO]18-02-2025T16:15:18,532 - [TASK] Applied date to task due.
+[INFO]18-02-2025T16:15:18,534 - [TASK] Applied task status NOT_STARTED.
+[INFO]18-02-2025T16:15:18,538 - [F_HANDLER] Successfully added contents to file.
+[INFO]18-02-2025T16:25:10,631 - [F_HANDLER] Successfully read contents.
+[INFO]18-02-2025T16:25:19,417 - [TASK] Correctly applied task name.
+[INFO]18-02-2025T16:25:19,422 - [TASK] Correctly applied task description.
+[INFO]18-02-2025T16:25:19,426 - [TASK] Applied date to task due.
+[INFO]18-02-2025T16:25:19,429 - [TASK] Applied task status NOT_STARTED.
+[INFO]18-02-2025T16:25:19,433 - [F_HANDLER] Successfully added contents to file.
