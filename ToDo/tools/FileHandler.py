@@ -1,3 +1,39 @@
+"""
+This module defines the class `FileHandler` which provides methods for file operations.
+
+Dependencies:
+- `Enum` from `enum` for defining file operation modes.
+- `contextmanager` from `contextlib` for managing file resources.
+- `Generator`, `IO` from `typing` for type hinting.
+- `isfile` from `os.path` for checking file existence.
+- `Logger` from `tools.logger` for logging.
+
+Class:
+    FileHandler: Class that provides methods for file operations.
+
+Methods:
+    __init__(self, operating_mode: str) -> None:
+        Initializes the `FileHandler` class with an operating mode.
+
+    set_operating_mode(self, new_operating_mode: str) -> None:
+        Sets a new operating mode.
+
+    get_operating_mode(self) -> FileOperatingMode:
+        Returns the current operating mode.
+
+    open_file(self, path: str, mode: str) -> Generator[IO, None, None]:
+        Opens a file with resource management.
+
+    write_file(self, path: str, content: str) -> bool:
+        Appends content to a file.
+
+    read_file(self, path: str) -> str | None:
+        Reads a file and returns the content.
+
+    operate_file(self, path: str, content: str = "") -> bool:
+        Performs file operations based on the current mode.
+"""
+
 from enum import Enum
 from contextlib import contextmanager
 from typing import Generator, IO
@@ -7,31 +43,73 @@ from tools.logger import Logger
 log = Logger("log/program.log")
 
 class FileHandler:
+    """
+    Class that provides methods for file operations.
 
+    Methods:
+        __init__(self, operating_mode: str) -> None:
+            Initializes the class with an operating mode.
+
+        set_operating_mode(self, new_operating_mode: str) -> None:
+            Sets a new operating mode.
+
+        get_operating_mode(self) -> FileOperatingMode:
+            Returns the current operating mode.
+
+        open_file(self, path: str, mode: str) -> Generator[IO, None, None]:
+            Opens a file with resource management.
+
+        write_file(self, path: str, content: str) -> bool:
+            Appends content to a file.
+
+        read_file(self, path: str) -> str | None:
+            Reads a file and returns the content.
+
+        operate_file(self, path: str, content: str = "") -> bool:
+            Performs file operations based on the current mode.
+    """
+    
     class UnsupportedOperationError(Exception):
-        """ Custom exception to annouce that the introduced operation is unsupported """
+        """ Custom exception to announce that the introduced operation is unsupported """
         def __init__(self, message = "Operation not supported"):
             self.message = message
             super().__init__(self.message)
 
     class FileOperatingMode(Enum):
-        """ This class serves as tracker for the current operator mode of the file hanlder """
+        """ This class serves as tracker for the current operator mode of the file handler """
         NONE = 0
         READ_FILE = 1
         WRITE_FILE = 2
         DELETE_FILE = 3
     
     def __init__(self, operating_mode: str):
+        """
+        Initializes the `FileHandler` class with an operating mode.
+
+        Parameters:
+        operating_mode (str): The initial operating mode.
+        """
         self.operating_mode = self.FileOperatingMode[operating_mode]
 
     def set_operating_mode(self, new_operating_mode: str) -> None:
+        """
+        Sets a new operating mode.
+
+        Parameters:
+        new_operating_mode (str): The new operating mode.
+        """
         self.operating_mode = self.FileOperatingMode[new_operating_mode]
     
     def get_operating_mode(self) -> FileOperatingMode:
+        """
+        Returns the current operating mode.
+
+        Returns:
+        FileOperatingMode: The current operating mode.
+        """
         return self.operating_mode
     
     @contextmanager
-    # Aqui hay un problema que genera una excepción acerca de 3 argumentos dados y 2 se esperan.
     def open_file(self, path: str, mode: str) -> Generator[IO, None, None]:
         """
         Opens a file securing a correct resource management in case of an exception.
@@ -43,9 +121,8 @@ class FileHandler:
         Yields:
         An IO object opened in the specified mode.
 
-        File will be automatically close after exiting the 'with' statement in which the function will be used.
+        File will be automatically closed after exiting the 'with' statement in which the function will be used.
         """
-
         try:
             file = open(path, mode)
             yield file
@@ -61,7 +138,7 @@ class FileHandler:
         content(str): The content to append to the file.
 
         Returns:
-        bool: True if the content was successfully written, False otherwise
+        bool: True if the content was successfully written, False otherwise.
 
         Raises:
         FileNotFoundError: If the file does not exist.
@@ -69,7 +146,6 @@ class FileHandler:
         PermissionError: If there is a lack of permission to access the file.
         OSError: For other I/O related errors.
         """
-
         try:
             with open(path, "a") as opened_file:
                 opened_file.write(content)
@@ -103,7 +179,6 @@ class FileHandler:
         PermissionError: If there is a lack of permission to access the file.
         OSError: For other I/O related errors.
         """
-
         try:
             with self.open_file(path, "r") as opened_file:
                 file_contents = opened_file.read()
